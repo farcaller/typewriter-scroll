@@ -1,0 +1,19 @@
+{
+  "name": "typewriter-scroll",
+  "main": "./lib/typewriter-scroll",
+  "version": "0.0.0",
+  "description": "Typewrite scroll module for atom text editor",
+  "keywords": [
+    "typewriter", "scrolling", "writing"
+  ],
+  "activationCommands": {
+    "atom-workspace": "typewriter-scroll:toggle"
+  },
+  "repository": "https://github.com/farcaller/typewriter-scroll",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
