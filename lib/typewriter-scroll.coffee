@@ -1,28 +1,38 @@
 {CompositeDisposable} = require 'atom'
+typewriterEditor = require "./typewriter-editor"
+
 
 module.exports = TypewriterScroll =
+  typewriterEditor: typewriterEditor
   subscriptions: null
-  lineChanged: null
+  enabled: false
+
+  config:
+    autoToggle:
+      type: 'boolean'
+      default: true
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.commands.add 'atom-workspace', 'typewriter-scroll:toggle': => @toggle()
-
-    @lineChanged?.dispose()
+    @subscriptions.add atom.commands.add 'atom-workspace',
+      "typewriter-scroll:toggle": => @toggle()
+      "typewriter-scroll:enable": => @enable()
+      "typewriter-scroll:disable": => @disable()
+    if atom.config.get 'typewriter-scroll.autoToggle'
+      @toggle()
 
   deactivate: ->
+    @enabled = false
     @subscriptions.dispose()
-    @lineChanged?.dispose()
+    @typewriterEditor.disable()
+
+  disable: ->
+    @enabled = false
+    @typewriterEditor.disable()
+
+  enable: ->
+    @enabled = true
+    @typewriterEditor.enable()
 
   toggle: ->
-    editor = atom.workspace.getActiveTextEditor()
-
-    if @lineChanged
-      @lineChanged.dispose()
-      @lineChanged = null
-    else
-      @lineChanged = editor.onDidChangeCursorPosition ->
-        halfScreen = Math.floor(editor.getRowsPerPage() / 2)
-        cursor = editor.getCursorScreenPosition()
-        element = editor.getElement()
-        element.setScrollTop editor.getLineHeightInPixels() * (cursor.row - halfScreen)
+    if @enabled then @disable() else @enable()
