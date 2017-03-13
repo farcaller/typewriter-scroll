@@ -12,7 +12,8 @@ module.exports =
     halfScreen = Math.floor(@editor.getRowsPerPage() / 2)
     cursor = @editor.getCursorScreenPosition()
     position = @editor.getLineHeightInPixels() * (cursor.row - halfScreen)
-    @editorElement.setScrollTop position
+    # Timeout needed since position changes after ::onDidChangeCursorPosition on moving with keys
+    setTimeout => @editorElement.setScrollTop position, 1
 
   prepareEditor: ->
     @cursorChangePosSubscription?.dispose()
