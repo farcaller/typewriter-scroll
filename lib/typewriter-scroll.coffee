@@ -16,6 +16,8 @@ module.exports = TypewriterScroll =
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace',
       "typewriter-scroll:toggle": => @toggle()
+      "typewriter-scroll:enable": => @enable()
+      "typewriter-scroll:disable": => @disable()
     if atom.config.get 'typewriter-scroll.autoToggle'
       @toggle()
 
