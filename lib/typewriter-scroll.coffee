@@ -24,4 +24,5 @@ module.exports = TypewriterScroll =
       @lineChanged = editor.onDidChangeCursorPosition ->
         halfScreen = Math.floor(editor.getRowsPerPage() / 2)
         cursor = editor.getCursorScreenPosition()
-        editor.setScrollTop editor.getLineHeightInPixels() * (cursor.row - halfScreen)
+        element = editor.getElement()
+        element.setScrollTop editor.getLineHeightInPixels() * (cursor.row - halfScreen)
