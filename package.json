@@ -1,7 +1,7 @@
 {
   "name": "typewriter-scroll",
   "main": "./lib/typewriter-scroll",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Typewrite scroll module for atom text editor",
   "keywords": [
     "typewriter",
